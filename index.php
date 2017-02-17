@@ -88,20 +88,21 @@ try {
   exit;
 }
 try{
+	echo "vsdgsdgds";
   $user = $response->getGraphUser();
 $src = imagecreatefrompng('images\clublogo.png');
 $dest = imagecreatefromjpeg($user['picture']["url"]);
 
 imagecopymerge($dest, $src, 380, 380, 0, 0, 100, 100,80); //have to play with these numbers for it to work for you, etc.
-
+echo "vdvsdgvs";
 $path='images\pr_'.$userNode["id"].'.jpeg';
 $userid=$userNode['id'];
 imagejpeg($dest, $path);
-
+echo "hgdfhdfshss";
 imagedestroy($dest);
 imagedestroy($src);
 
-
+echo "sdgvsgsg";
 $session=$_SESSION['facebook_access_token'];
 $data = [
   'source' => $fb->fileToUpload('images\pr_'.$userNode['id'].'.jpeg'),
@@ -113,10 +114,10 @@ $userNode = $response->getGraphUser();
   echo 'Message: ' .$e->getMessage();
   exit;
 }
-$url='http://www.facebook.com/photo.php?fbid='.$userNode['id'].'&type=1&makeprofile=1';
+/*$url='http://www.facebook.com/photo.php?fbid='.$userNode['id'].'&type=1&makeprofile=1';
 
 echo '<a href="' . $url . '">Make profile pic!</a>';
-echo '<img src = "images\pr_'.$userid.'.jpeg" widht=300px height=400px></img>';
+echo '<img src = "images\pr_'.$userid.'.jpeg" widht=300px height=400px></img>';*/
 }
 else {
   // we need to create a new session, provide a login link
