@@ -114,10 +114,10 @@ $userNode = $response->getGraphUser();
   echo 'Message: ' .$e->getMessage();
   exit;
 }
-/*$url='http://www.facebook.com/photo.php?fbid='.$userNode['id'].'&type=1&makeprofile=1';
+$url='http://www.facebook.com/photo.php?fbid='.$userNode['id'].'&type=1&makeprofile=1';
 
 echo '<a href="' . $url . '">Make profile pic!</a>';
-echo '<img src = "images\pr_'.$userid.'.jpeg" widht=300px height=400px></img>';*/
+echo '<img src = "images\pr_'.$userid.'.jpeg" widht=300px height=400px></img>';
 }
 else {
   // we need to create a new session, provide a login link
