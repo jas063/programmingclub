@@ -1,71 +1,5 @@
-
-
-require_once __DIR__ . '/facebook-sdk-5/src/Facebook/autoload.php';
-<?php
-session_start();
- 
-require_once 'facebook-php-sdk/autoload.php';
-use Facebook\FacebookSession;
-use Facebook\FacebookRequest;
-use Facebook\GraphUser;
-use Facebook\FacebookRequestException;
-use Facebook\FacebookRedirectLoginHelper;
- 
-$api_key = '378385452536688';
-$api_secret = '64b46eea04b49397e5e4380759f9deae';
-$redirect_login_url = 'http://localhost/programmingclub/index.php';
-/* PHP SDK v5.0.0 */
-/* make the API call */
-FacebookSession::setDefaultApplication($api_key, $api_secret);
-// create a helper opject which is needed to create a login URL
-// the $redirect_login_url is the page a visitor will come to after login
-$helper = new FacebookRedirectLoginHelper( $redirect_login_url);
-
-
-// First check if this is an existing PHP session
-if ( isset( $_SESSION ) && isset( $_SESSION['fb_token'] ) ) {
-	// create new session from the existing PHP sesson
-	$session = new FacebookSession( $_SESSION['fb_token'] );
-	try {
-		// validate the access_token to make sure it's still valid
-		if ( !$session->validate() ) $session = null;
-	} catch ( Exception $e ) {
-		// catch any exceptions and set the sesson null
-		$session = null;
-		echo 'No session: '.$e->getMessage();
-	}
-}  elseif ( empty( $session ) ) {
-	// the session is empty, we create a new one
-	try {
-		// the visitor is redirected from the login, let's pickup the session
-		$session = $helper->getSessionFromRedirect();
-	} catch( FacebookRequestException $e ) {
-		// Facebook has returned an error
-		echo 'Facebook (session) request error: '.$e->getMessage();
-	} catch( Exception $e ) {
-		// Any other error
-		echo 'Other (session) request error: '.$e->getMessage();
-	}
-}
-if ( isset( $session ) ) {
-	// store the session token into a PHP session
-	$_SESSION['fb_token'] = $session->getToken();
-	// and create a new Facebook session using the cururent token
-	// or from the new token we got after login
-$session = new FacebookSession( $session->getToken() );
-$request = new FacebookRequest(
-  $session,
-  'GET',
-  '/{user-id}/picture'
-);
-$response = $request->execute();
-$graphObject = $response->getGraphObject();
-}
-?>
-
+<!DOCTYPE html>
 <html>
-<head>
-</head>
 <body>
 <script>
   window.fbAsyncInit = function() {
@@ -86,7 +20,108 @@ $graphObject = $response->getGraphObject();
    }(document, 'script', 'facebook-jssdk'));
 </script>
 
-/* handle the result */ 
-<p>fsdbgisbk</p>
-//<img src=$graphObject->data>
-</body></html>
+<?php 
+  session_start();
+ require_once __DIR__ . '/facebook-sdk-5/src/Facebook/autoload.php';
+
+use Facebook\Helpers\FacebookRedirectLoginHelper;
+use Facebook\FacebookRequest;
+use Facebook\FacebookResponse;
+use Facebook\GraphObject;
+use Facebook\FacebookRequestException;
+use Facebook\GraphUser;
+
+$api_key = '378385452536688';
+$api_secret = '64b46eea04b49397e5e4380759f9deae';
+$redirect_login_url = 'http://localhost/programmingclub/index1.php';
+
+$fb = new Facebook\Facebook([
+  'app_id' => '378385452536688',
+  'app_secret' => '64b46eea04b49397e5e4380759f9deae',
+  'default_graph_version' => 'v2.8',
+]);
+
+$helper = $fb->getRedirectLoginHelper();
+$permissions = ['email', 'user_likes']; // optional
+$loginUrl = $helper->getLoginUrl('http://localhost/programmingclub/index1.php', $permissions);
+
+$helper = $fb->getRedirectLoginHelper();
+try {
+  $accessToken = $helper->getAccessToken();
+} catch(Facebook\Exceptions\FacebookResponseException $e) {
+  // When Graph returns an error
+  echo 'Graph returned an error: ' . $e->getMessage();
+  exit;
+} catch(Facebook\Exceptions\FacebookSDKException $e) {
+  // When validation fails or other local issues
+  echo 'Facebook SDK returned an error: ' . $e->getMessage();
+  exit;
+}
+
+if (isset($accessToken)) {
+  // Logged in!
+  $_SESSION['facebook_access_token'] = (string) $accessToken;
+
+  // Now you can redirect to another page and use the
+  // access token from $_SESSION['facebook_access_token']
+  $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
+try {
+  $response = $fb->get('/me');
+  $userNode = $response->getGraphUser();
+} catch(Facebook\Exceptions\FacebookResponseException $e) {
+  // When Graph returns an error
+  echo 'Graph returned an error: ' . $e->getMessage();
+  exit;
+} catch(Facebook\Exceptions\FacebookSDKException $e) {
+  // When validation fails or other local issues
+  echo 'Facebook SDK returned an error: ' . $e->getMessage();
+  exit;
+}
+try {
+  // Returns a `Facebook\FacebookResponse` object
+  $response = $fb->get('/me?fields=id,name,picture.width(400).height(400)');
+} catch(Facebook\Exceptions\FacebookResponseException $e) {
+  echo 'Graph returned an error: ' . $e->getMessage();
+  exit;
+} catch(Facebook\Exceptions\FacebookSDKException $e) {
+  echo 'Facebook SDK returned an error: ' . $e->getMessage();
+  exit;
+}
+try{
+  $user = $response->getGraphUser();
+$src = imagecreatefrompng('clublogo.png');
+$dest = imagecreatefromjpeg($user['picture']["url"]);
+
+imagecopymerge($dest, $src, 380, 380, 0, 0, 100, 100,80); //have to play with these numbers for it to work for you, etc.
+
+$path='pr_'.$userNode["id"].'.jpeg';
+$userid=$userNode['id'];
+imagejpeg($dest, $path);
+
+imagedestroy($dest);
+imagedestroy($src);
+
+
+$session=$_SESSION['facebook_access_token'];
+$data = [
+  'source' => $fb->fileToUpload('pr_'.$userNode['id'].'.jpeg'),
+  ];
+
+$response = $fb->post('/me/photos', $data);
+$userNode = $response->getGraphUser();
+} catch(Exception $e) {
+  echo 'Message: ' .$e->getMessage();
+  exit;
+}
+$url='http://www.facebook.com/photo.php?fbid='.$userNode['id'].'&type=1&makeprofile=1';
+
+echo '<a href="' . $url . '">Make profile pic!</a>';
+echo '<img src = "pr_'.$userid.'.jpeg" widht=300px height=400px></img>';
+}
+else {
+  // we need to create a new session, provide a login link
+  echo 'No session, please <a href="'. $loginUrl.'">login</a>.';
+}
+?>
+</body>
+</html>
