@@ -43,7 +43,7 @@ $fb = new Facebook\Facebook([
 
 $helper = $fb->getRedirectLoginHelper();
 $permissions = ['email', 'user_likes']; // optional
-$loginUrl = $helper->getLoginUrl('http://localhost/programmingclub/index1.php', $permissions);
+$loginUrl = $helper->getLoginUrl('https://programmingclub.herokuapp.com/', $permissions);
 
 $helper = $fb->getRedirectLoginHelper();
 try {

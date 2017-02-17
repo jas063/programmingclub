@@ -10,7 +10,7 @@ use Facebook\FacebookRedirectLoginHelper;
  
 $api_key = '378385452536688';
 $api_secret = '64b46eea04b49397e5e4380759f9deae';
-$redirect_login_url = 'http://localhost/programmingclub/index.php';
+$redirect_login_url = 'https://programmingclub.herokuapp.com/';
 /* PHP SDK v5.0.0 */
 /* make the API call */
 FacebookSession::setDefaultApplication($api_key, $api_secret);
