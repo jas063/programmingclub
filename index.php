@@ -55,7 +55,7 @@ use Facebook\GraphUser;
 $api_key = '378385452536688';
 $api_secret = '64b46eea04b49397e5e4380759f9deae';
 $redirect_login_url = 'https://programmingclub.herokuapp.com/index.php';
-
+echo "fdsgsdg";
 $fb = new Facebook\Facebook([
   'app_id' => '378385452536688',
   'app_secret' => '64b46eea04b49397e5e4380759f9deae',
