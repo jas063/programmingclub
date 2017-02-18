@@ -111,22 +111,6 @@ try {
 try{
 	
   $user = $response->getGraphUser();
-$src = imagecreatefrompng('images\clublogo.png');
-$dest = imagecreatefromjpeg($user['picture']["url"]);
-
-imagecopymerge($dest, $src, 380, 380, 0, 0, 100, 100,80); //have to play with these numbers for it to work for you, etc.
-
-$path='images\pr_'.$userNode["id"].'.jpeg';
-$userid=$userNode['id'];
-imagejpeg($dest, $path);
-
-imagedestroy($dest);
-imagedestroy($src);
-
-echo '<img src = "images\pr_'.$userid.'.jpeg" widht=300px height=400px></img>';
-$session=$_SESSION['facebook_access_token'];
-$userid=$userNode['id'];
-echo '<a class="facebook" href="test.php?session='.$session.'&userid='.$userid.'"><i class="fa fa-facebook-square"></i>Make profile picture</a>';
 
 
 }catch(Exception $e) {
