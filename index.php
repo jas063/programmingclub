@@ -113,20 +113,7 @@ echo "cdsgvs ";
 try{
 	
   $user = $response->getGraphUser();
-$src = imagecreatefrompng('images\clublogo.png');
-echo "  1  ";
-$dest = imagecreatefromjpeg($user['picture']["url"]);
-echo "  2  ";
-imagecopymerge($dest, $src, 380, 380, 0, 0, 100, 100,80); //have to play with these numbers for it to work for you, etc.
-echo "  3  ";
-$path='images\pr_'.$userNode["id"].'.jpeg';
-$userid=$userNode['id'];
-imagejpeg($dest, $path);
-echo "    4  ";
-imagedestroy($dest);
-imagedestroy($src);
-echo "  5  ";
-echo '<img src = "images\pr_'.$userid.'.jpeg" widht=300px height=400px></img>';
+echo '<img src = "images\clublogo.png" widht=300px height=400px></img>';
 $session=$_SESSION['facebook_access_token'];
 $userid=$userNode['id'];
 echo '<a class="facebook" href="test.php?session='.$session.'&userid='.$userid.'"><i class="fa fa-facebook-square"></i>Make profile picture</a>';
