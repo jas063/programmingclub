@@ -78,7 +78,7 @@ try {
   echo 'Facebook SDK returned an error: ' . $e->getMessage();
   exit;
 }
-echo "vsdsdbf";
+echo "vsdsdbf ";
 if (isset($accessToken)) {
   // Logged in!
   $_SESSION['facebook_access_token'] = (string) $accessToken;
@@ -98,7 +98,7 @@ try {
   echo 'Facebook SDK returned an error: ' . $e->getMessage();
   exit;
 }
-echo "vfdsvs";
+echo "vfdsvs ";
 try {
   // Returns a `Facebook\FacebookResponse` object
   $response = $fb->get('/me?fields=id,name,picture.width(400).height(400)');
@@ -109,7 +109,7 @@ try {
   echo 'Facebook SDK returned an error: ' . $e->getMessage();
   exit;
 }
-echo "cdsgvs";
+echo "cdsgvs ";
 try{
 	
   $user = $response->getGraphUser();
