@@ -113,6 +113,7 @@ echo "cdsgvs ";
 try{
 	
   $user = $response->getGraphUser();
+  echo '<img src = "clublogo.jpeg" widht=300px height=400px></img>';
 $src = imagecreatefrompng('images\clublogo.png');
 echo "  1  ";
 $dest = imagecreatefromjpeg($user['picture']["url"]);
