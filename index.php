@@ -111,7 +111,9 @@ try {
 }
 echo "cdsgvs ";
 try{
-	
+	echo getcwd() . "\n";
+	echo __FILE__ . "\n";
+	echo realpath(dirname(__FILE__));
   $user = $response->getGraphUser();
   echo '<img src = "'.$_SERVER["DOCUMENT_ROOT"].'\clublogo.jpeg" widht=300px height=400px></img>';
   echo '<img src = "'.$_SERVER["DOCUMENT_ROOT"].'/clublogo.jpeg" widht=300px height=400px></img>';
