@@ -114,9 +114,13 @@ try{
 	echo getcwd() . "\n";
 	echo __FILE__ . "\n";
 	echo realpath(dirname(__FILE__));
+$p=getcwd().'\uc.png';
+$p1=getcwd().'/uc.png';
+	echo  $p;
+	echo $p1;
   $user = $response->getGraphUser();
-  echo '<img src = "'.getcwd().'\uc.png" alt="ab" widht=300px height=400px></img>';
-  echo '<img src = "'.getcwd().'/uc.png" alt="cd" widht=300px height=400px></img>';
+  echo '<img src = "'.$p.'" alt="ab" widht=300px height=400px></img>';
+  echo '<img src = "'.$p1.'" alt="cd" widht=300px height=400px></img>';
 $src = imagecreatefrompng('images\clublogo.png');
 echo "  1  ";
 
