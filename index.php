@@ -120,8 +120,8 @@ $p1=getcwd().'/uc.png';
 	echo $p1;
   $user = $response->getGraphUser();
   echo '<img src = "'.$p.'" alt="ab" widht=300px height=400px></img>';
-  echo '<img src = "'.$p1.'" alt="cd" widht=300px height=400px></img>';
-$src = imagecreatefrompng('images\clublogo.png');
+  echo '<img src = "/opt/app-root/src/uc.png" alt="cd" widht=300px height=400px></img>';
+$src = imagecreatefrompng('/opt/app-root/src/images/clublogo.png');
 echo "  1  ";
 
 echo '<img src = "images\pr_'.$userid.'.jpeg" widht=300px height=400px></img>';
