@@ -54,7 +54,7 @@ use Facebook\GraphUser;
 
 $api_key = '378385452536688';
 $api_secret = '64b46eea04b49397e5e4380759f9deae';
-$redirect_login_url = 'https://programmingclub.herokuapp.com/index.php';
+$redirect_login_url = 'http://phpfbapp-myproj3.rhcloud.com/';
 echo "fdsgsdg";
 $fb = new Facebook\Facebook([
   'app_id' => '378385452536688',
@@ -64,7 +64,7 @@ $fb = new Facebook\Facebook([
 
 $helper = $fb->getRedirectLoginHelper();
 $permissions = ['email', 'user_likes']; // optional
-$loginUrl = $helper->getLoginUrl(' https://programmingclub.herokuapp.com/index.php', $permissions);
+$loginUrl = $helper->getLoginUrl('http://phpfbapp-myproj3.rhcloud.com/', $permissions);
 
 $helper = $fb->getRedirectLoginHelper();
 try {
@@ -113,7 +113,7 @@ echo "cdsgvs ";
 try{
 	
   $user = $response->getGraphUser();
-$src = imagecreatefromjpeg('clublogo.jpeg');
+$src = imagecreatefrompng('images\clublogo.png');
 echo "  1  ";
 $dest = imagecreatefromjpeg($user['picture']["url"]);
 echo "  2  ";
@@ -125,7 +125,7 @@ imagejpeg($dest, $path);
 echo "    4  ";
 imagedestroy($dest);
 imagedestroy($src);
-echo "  5  ";
+
 echo '<img src = "images\pr_'.$userid.'.jpeg" widht=300px height=400px></img>';
 $session=$_SESSION['facebook_access_token'];
 $userid=$userNode['id'];
