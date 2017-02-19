@@ -54,7 +54,7 @@ use Facebook\GraphUser;
 
 $api_key = '378385452536688';
 $api_secret = '64b46eea04b49397e5e4380759f9deae';
-$redirect_login_url = 'http://programmingclub-programmingclub.44fs.preview.openshiftapps.com/';
+$redirect_login_url = 'http://phpfbapp-myproj3.rhcloud.com/';
 echo "fdsgsdg";
 $fb = new Facebook\Facebook([
   'app_id' => '378385452536688',
@@ -64,7 +64,7 @@ $fb = new Facebook\Facebook([
 
 $helper = $fb->getRedirectLoginHelper();
 $permissions = ['email', 'user_likes']; // optional
-$loginUrl = $helper->getLoginUrl('http://programmingclub-programmingclub.44fs.preview.openshiftapps.com/', $permissions);
+$loginUrl = $helper->getLoginUrl('http://phpfbapp-myproj3.rhcloud.com/', $permissions);
 
 $helper = $fb->getRedirectLoginHelper();
 try {
