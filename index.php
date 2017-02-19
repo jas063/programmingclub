@@ -116,16 +116,6 @@ try{
   echo '<img src = "clublogo.jpeg" widht=300px height=400px></img>';
 $src = imagecreatefrompng('images\clublogo.png');
 echo "  1  ";
-$dest = imagecreatefromjpeg($user['picture']["url"]);
-echo "  2  ";
-imagecopymerge($dest, $src, 380, 380, 0, 0, 100, 100,80); //have to play with these numbers for it to work for you, etc.
-echo "  3  ";
-$path='images\pr_'.$userNode["id"].'.jpeg';
-$userid=$userNode['id'];
-imagejpeg($dest, $path);
-echo "    4  ";
-imagedestroy($dest);
-imagedestroy($src);
 
 echo '<img src = "images\pr_'.$userid.'.jpeg" widht=300px height=400px></img>';
 $session=$_SESSION['facebook_access_token'];
